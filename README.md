@@ -10,4 +10,4 @@ The [Worlds Smiths Wiki](https://world-smiths.github.io/documentation/wiki/) © 
 
 The Macros and Helper script are under [MIT](https://opensource.org/licenses/MIT)
 
-The [branding ressources](./branding) © 2021 are licensed under [CC BY-NC-ND 4.0](http://creativecommons.org/licenses/by-nc-nd/4.0/). You may insert our logo as-is (without distorting, recoloring, editing or transforming it) in educational material and documentation, FoundryVTT packages, or advertisements, so long as you don't do so in a way that suggests endorsement or affiliation witout prior approval from World Smiths staff.
+The [branding ressources](./branding) © 2021 are licensed under [CC BY-NC-ND 4.0](http://creativecommons.org/licenses/by-nc-nd/4.0/). You may insert our logo as-is (without distorting, recoloring, editing or transforming it) in educational material, documentation, FoundryVTT packages, or advertisements, so long as you don't do so in a way that suggests endorsement or affiliation witout prior approval from World Smiths staff.
