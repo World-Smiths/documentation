@@ -20,9 +20,9 @@ While our team doesn't mandate the use of a specific editor or IDE, many team me
 
 ### Guides for World Builders
 
-#### [Symlinks](./symlinks.md)
+#### [Symlinking](./symlinking.md)
 
-Instructions on getting your world to show up in FoundryVTT by linking a project folder to your `Data/worlds` directory.
+Instructions on building a world outside of Foundry's `Data/worlds` directory, while still having it show up within Foundry.
 
 #### [Git](./git.md)
 
