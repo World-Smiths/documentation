@@ -2,7 +2,7 @@
 
 ## What is this?
 
-On the last column of the [Creators Dashboard](https://docs.google.com/spreadsheets/d/18WjJD0-mmqIgs6Lqko40Jp22uwwaDAuHK32r_Z__KXs/edit), in the `"bugs"` field of the manifests ([world.json](https://github.com/World-Smiths/template-world/blob/main/world/world.json) and [module.json](https://github.com/World-Smiths/template-world/blob/main/world/module.json)) as well as the [README.md](https://github.com/World-Smiths/template-world/blob/main/README.md), you are instructed to insert a unique Discord invite link.
+In the `"bugs"` field of the manifests ([world.json](https://github.com/World-Smiths/template-world/blob/main/world/world.json) and [module.json](https://github.com/World-Smiths/template-world/blob/main/world/module.json)) as well as the [README.md](https://github.com/World-Smiths/template-world/blob/main/README.md), you are instructed to insert a unique Discord invite link.
 This link should be the same in all of these locations.
 
 ## How do I find the link?

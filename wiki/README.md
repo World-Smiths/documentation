@@ -18,7 +18,7 @@ All things need to interact with and make changes to repositories.
 
 While our team doesn't mandate the use of a specific editor or IDE, many team members have created tips and tools to help enhance world building workflows.
 
-### Guides for Creators
+### Guides for World Builders
 
 #### [Symlinks](./symlinks.md)
 
@@ -35,16 +35,6 @@ How to navigate on GitHub and contribute to the worlds hosted there.
 #### [Migration](./migration.md)
 
 Explains what changes between versions and what must be done to update the worlds
-
-#### [Creator team Tasks](./tasks.md)
-
-Breakdown of each Creator team's tasks
-
-### Guides for QA
-
-#### [Getting Started](./qa-guide.md)
-
-A quick and comprehensive guide to everything you need to know to get started for Quality Assurance team members.
 
 ## Workflow
 
