@@ -31,7 +31,6 @@
     │   ├ 📂 tables (optional)
     │   ├ 📄 module.json
     │   └ 📄 world.json
-    ├ 📜 .drone.yml
     ├ ⚙️ .editorconfig
     ├ ⚙️ .gitattributes
     ├ ⚙️ .gitignore
@@ -50,13 +49,13 @@
 | **assets/**            | contains reference materials such as PDFs, hi-res images, and other assets to help in world creation   |
 | **docs/**              | contains documentation related module creation, maintenance, or any world builder specific information |
 | **world/**             | contains the full source of a complete foundry world                                                   |
-| **world/module.json**  | manifest file which defines the module (must follow the specs [here](../template-world/world/module.json))                                              |
-| **world/world.json**   | manifest file which defines the world (must follow the specs [here](../template-world/world/world.json))                                               |                                                              |
-| **.drone.yml**         | instructions for the drone CI/CD pipeline (from [here](../template-world/.drone.yml))                                                                                                |                                                                                                |                                | **.editorconfig**      | configure your editing environnement (from [here](../template-world/.editorconfig))                                                                                             |
-| **.gitattributes**     | instructs git on how to manage specific files (from [here](../template-world/.gitattributes))                                                                                            |
-| **.gitignore**         | a list of file types that will be ignored in commits (from [here](../template-world/.gitignore))                                                    |
-| **CHANGELOG.md**       | includes a full changelog (from [here](../template-world/CHANGELOG.md))                                                                                              |
-| **README.md**          | A description of the world. Make sure to include all of the elements described [here](../template-world/README.md), but to exclude any changelogs (which should be in the CHANGELOG.md)                                                                                                                 |
+| **world/module.json**  | manifest file which defines the module (must follow the specs [here](https://github.com/World-Smiths/template-world/blob/main/world/module.json))                                              |
+| **world/world.json**   | manifest file which defines the world (must follow the specs [here](https://github.com/World-Smiths/template-world/blob/main/world/world.json))                                               |                                                              |
+| **.editorconfig**      | configure your editing environnement (from [here](https://github.com/World-Smiths/template-world/blob/main/.editorconfig))                                                                                             |
+| **.gitattributes**     | instructs git on how to manage specific files (from [here](https://github.com/World-Smiths/template-world/blob/main/.gitattributes))                                                                                            |
+| **.gitignore**         | a list of file types that will be ignored in commits (from [here](https://github.com/World-Smiths/template-world/blob/main/.gitignore))                                                    |
+| **CHANGELOG.md**       | includes a full changelog (from [here](https://github.com/World-Smiths/template-world/blob/main/CHANGELOG.md))                                                                                              |
+| **README.md**          | A description of the world. Make sure to include all of the elements described [here](https://github.com/World-Smiths/template-world/blob/main/README.md), but to exclude any changelogs (which should be in the CHANGELOG.md)                                                                                                                 |
 
 ## File Paths
 

@@ -2,7 +2,7 @@
 
 ## What is this?
 
-On the last column of the [Creators Dashboard](https://docs.google.com/spreadsheets/d/18WjJD0-mmqIgs6Lqko40Jp22uwwaDAuHK32r_Z__KXs/edit), in the `"bugs"` field of the manifests ([world.json](../template-world/world/world.json) and [module.json](../template-world/world/module.json)) as well as the [README.md](../template-world/README.md), you are instructed to insert a unique Discord invite link.
+On the last column of the [Creators Dashboard](https://docs.google.com/spreadsheets/d/18WjJD0-mmqIgs6Lqko40Jp22uwwaDAuHK32r_Z__KXs/edit), in the `"bugs"` field of the manifests ([world.json](https://github.com/World-Smiths/template-world/blob/main/world/world.json) and [module.json](https://github.com/World-Smiths/template-world/blob/main/world/module.json)) as well as the [README.md](https://github.com/World-Smiths/template-world/blob/main/README.md), you are instructed to insert a unique Discord invite link.
 This link should be the same in all of these locations.
 
 ## How do I find the link?
@@ -19,7 +19,7 @@ Click on that and then you should see an invite button:
 
 This should pop up:
 
-![friend list](https://i.imgur.com/AkeRMog.png)
+![friend list](https://i.imgur.com/Kq29kuS.png)
 
 Click on the button on the bottom to "Edit invite link":
 
