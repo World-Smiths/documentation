@@ -59,3 +59,7 @@ Community created tools to help with the format of your repository and the packa
 ### [Snippets](./snippets.md)
 
 Some Macros and tools to help with world development.
+
+---
+
+The [Worlds Smiths Wiki](https://world-smiths.github.io/documentation/wiki/) © 2021 is licensed under [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
