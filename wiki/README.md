@@ -8,10 +8,6 @@ Here you will find a collection of world building documentation, code snippets, 
 
 Are you new to the project and not sure where to get started? That's fine! This section of the wiki will walk you through everything you need to configure your local workstation, interact with content, and submit changes. 
 
-### [IDEs and Editors](./ides-and-editors.md)
-
-While our team doesn't mandate the use of a specific editor or IDE, many team members have created tips and tools to help enhance world building workflows.
-
 ### [Symlinking](./symlinking.md)
 
 Instructions on building a world outside of Foundry's `Data/worlds` directory, while still having it show up within Foundry.
