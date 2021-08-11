@@ -1,6 +1,6 @@
 # Attributing
 
-If you are using material licensed under [Creative Commons](https://creativecommons.org/) (a common license used by many artists), according to the terms of the license, you are required to give credit to the original author and indicate if changes were made. Note that **Creative Commons Zero (CC0, CC0 1.0)** does *not require* attribution, but it is still a nice thing to do.
+If you are using material licensed under [Creative Commons](https://creativecommons.org/) (a common license used by many artists), according to the terms of the license, you are required to give credit to the original author and indicate if changes were made. Note that **Creative Commons Zero (CC0, CC0 1.0)** does _not require_ attribution, but it is still a nice thing to do.
 
 ## Credits Journal Entry
 
@@ -47,17 +47,18 @@ Sorted by file type:
 ## Attribution Structure
 
 Let us examine an example attribution:
+
 > **celebration_grayscale.webp**: "[Creative Commons 10th Birthday Celebration San Francisco](https://www.flickr.com/photos/sixteenmilesofstring/8256206923/in/set-72157632200936657)" by [tvol](https://www.flickr.com/photos/sixteenmilesofstring/) is licensed under [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). / Desaturated, levels adjusted.
 
 A good source attribution answers the following questions:
 
-| Question | Answer | Description |
-|---|---|---|
-| **File?** | celebration_grayscale.webp | What file is this source attribution for? In larger projects containing many files with the same name, you could also use the relative path to the file from the project root directory. |
-| **Title?** | [Creative Commons 10th Birthday Celebration San Francisco](https://www.flickr.com/photos/sixteenmilesofstring/8256206923/in/set-72157632200936657) | The original title of the work (**optionally**) linked to the source website. If a title is not provided, don't add one. |
-| **Author?** |  [tvol](https://www.flickr.com/photos/sixteenmilesofstring/) | Name of the author—written how the author wishes to be attributed, which may not be their real name—(**optionally**) linked to the author's-website. In rare cases, the author may not want to be attributed at all. In this case, don't add the author. |
-| **License?** | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/) | **Optional:** License abbreviation linked to license deed. Only add this if you *know* what the license of the source work is. |
-| **Changes?** | Desaturated, levels adjusted. | **Optional:** A *brief* description of how the original work has been changed. Only add this if you have made *changes* to the file. |
+| Question     | Answer                                                                                                                                             | Description                                                                                                                                                                                                                                              |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **File?**    | celebration_grayscale.webp                                                                                                                         | What file is this source attribution for? In larger projects containing many files with the same name, you could also use the relative path to the file from the project root directory.                                                                 |
+| **Title?**   | [Creative Commons 10th Birthday Celebration San Francisco](https://www.flickr.com/photos/sixteenmilesofstring/8256206923/in/set-72157632200936657) | The original title of the work (**optionally**) linked to the source website. If a title is not provided, don't add one.                                                                                                                                 |
+| **Author?**  | [tvol](https://www.flickr.com/photos/sixteenmilesofstring/)                                                                                        | Name of the author—written how the author wishes to be attributed, which may not be their real name—(**optionally**) linked to the author's-website. In rare cases, the author may not want to be attributed at all. In this case, don't add the author. |
+| **License?** | [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)                                                                                          | **Optional:** License abbreviation linked to license deed. Only add this if you _know_ what the license of the source work is.                                                                                                                           |
+| **Changes?** | Desaturated, levels adjusted.                                                                                                                      | **Optional:** A _brief_ description of how the original work has been changed. Only add this if you have made _changes_ to the file.                                                                                                                     |
 
 ### File Format Conversions
 
@@ -70,6 +71,7 @@ The Markdown formatting can be used in git repositories. The HTML formatting is 
 #### Common Use Case
 
 With no changes made to the file and a single author.
+
 > **File Name**: "[Source Page Title or File Name](link-to-source-website-or-file)" by [Author](author's-website) is licensed under [License Abbreviation](link-to-license-deed).
 
 ```md
@@ -80,6 +82,7 @@ HTML: <p><strong>File Name</strong>: "<a href="link-to-source-website-or-file">S
 #### Unknown License
 
 If the source material license is unknown, but you still want to credit the author.
+
 > **File Name**: "[Source Page Title or File Name](link-to-source-website-or-file)" by [Author](author's-website).
 
 ```md
@@ -90,6 +93,7 @@ HTML: <p><strong>File Name</strong>: "<a href="link-to-source-website-or-file">S
 #### Multiple Authors
 
 In the case of multiple authors, separate them by commas.
+
 > **File Name**: "[Source Page Title or File Name](link-to-source-website-or-file)" by [Author 1](author-1's-website), [Author 2](author-2's-website) is licensed under [License Abbreviation](link-to-license-deed).
 
 ```md
@@ -100,6 +104,7 @@ HTML: <p><strong>File Name</strong>: "<a href="link-to-source-website-or-file">S
 #### With Changes
 
 If you have made changes to the file, note them at the end of the line, separated with a forward slash (**/**).
+
 > **File Name**: "[Source Page Title or File Name](link-to-source-website-or-file)" by [Author](author's-website) is licensed under [License Abbreviation](link-to-license-deed). / Briefly describe changes you've made.
 
 ```md
@@ -115,24 +120,24 @@ The table only lists the newer 3.0 and 4.0 versions of the licenses. For all ver
 
 If the content you are attributing does not specify the version of the Creative Commons license (e.g., "licensed under CC-BY"), you can assume it refers to the newest version of the license (**4.0** at the time of writing of this article).
 
-| Title | Abbr. | Link |
-|:---|:---|:---|
-| Attribution 4.0 International | CC BY 4.0 | [Deed](https://creativecommons.org/licenses/by/4.0/) |
-| Attribution-ShareAlike 4.0 International | CC BY-SA 4.0 | [Deed](https://creativecommons.org/licenses/by-sa/4.0/) |
-| Attribution-NoDerivatives 4.0 International | CC BY-ND 4.0 | [Deed](https://creativecommons.org/licenses/by-nd/4.0/) |
-| Attribution-NonCommercial 4.0 International | CC BY-NC 4.0 | [Deed](https://creativecommons.org/licenses/by-nc/4.0/) |
-| Attribution-NonCommercial-ShareAlike 4.0 International | CC BY-NC-SA 4.0 | [Deed](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
+| Title                                                     | Abbr.           | Link                                                       |
+| :-------------------------------------------------------- | :-------------- | :--------------------------------------------------------- |
+| Attribution 4.0 International                             | CC BY 4.0       | [Deed](https://creativecommons.org/licenses/by/4.0/)       |
+| Attribution-ShareAlike 4.0 International                  | CC BY-SA 4.0    | [Deed](https://creativecommons.org/licenses/by-sa/4.0/)    |
+| Attribution-NoDerivatives 4.0 International               | CC BY-ND 4.0    | [Deed](https://creativecommons.org/licenses/by-nd/4.0/)    |
+| Attribution-NonCommercial 4.0 International               | CC BY-NC 4.0    | [Deed](https://creativecommons.org/licenses/by-nc/4.0/)    |
+| Attribution-NonCommercial-ShareAlike 4.0 International    | CC BY-NC-SA 4.0 | [Deed](https://creativecommons.org/licenses/by-nc-sa/4.0/) |
 | Attribution-NonCommercial-NoDerivatives 4.0 International | CC BY-NC-ND 4.0 | [Deed](https://creativecommons.org/licenses/by-nc-nd/4.0/) |
-| Attribution 3.0 Unported | CC BY 3.0 | [Deed](https://creativecommons.org/licenses/by/3.0/) |
-| Attribution-ShareAlike 3.0 Unported | CC BY-SA 3.0 | [Deed](https://creativecommons.org/licenses/by-sa/3.0/) |
-| Attribution-NoDerivs 3.0 Unported | CC BY-ND 3.0 | [Deed](https://creativecommons.org/licenses/by-nd/3.0/) |
-| Attribution-NonCommercial 3.0 Unported | CC BY-NC 3.0 | [Deed](https://creativecommons.org/licenses/by-nc/3.0/) |
-| Attribution-NonCommercial-ShareAlike 3.0 Unported | CC BY-NC-SA 3.0 | [Deed](https://creativecommons.org/licenses/by-nc-sa/3.0/) |
-| Attribution-NonCommercial-NoDerivs 3.0 Unported | CC BY-NC-ND 3.0 | [Deed](https://creativecommons.org/licenses/by-nc-nd/3.0/) |
-| CC0 1.0 Universal | CC0 1.0 | [Deed](https://creativecommons.org/publicdomain/zero/1.0/) |
+| Attribution 3.0 Unported                                  | CC BY 3.0       | [Deed](https://creativecommons.org/licenses/by/3.0/)       |
+| Attribution-ShareAlike 3.0 Unported                       | CC BY-SA 3.0    | [Deed](https://creativecommons.org/licenses/by-sa/3.0/)    |
+| Attribution-NoDerivs 3.0 Unported                         | CC BY-ND 3.0    | [Deed](https://creativecommons.org/licenses/by-nd/3.0/)    |
+| Attribution-NonCommercial 3.0 Unported                    | CC BY-NC 3.0    | [Deed](https://creativecommons.org/licenses/by-nc/3.0/)    |
+| Attribution-NonCommercial-ShareAlike 3.0 Unported         | CC BY-NC-SA 3.0 | [Deed](https://creativecommons.org/licenses/by-nc-sa/3.0/) |
+| Attribution-NonCommercial-NoDerivs 3.0 Unported           | CC BY-NC-ND 3.0 | [Deed](https://creativecommons.org/licenses/by-nc-nd/3.0/) |
+| CC0 1.0 Universal                                         | CC0 1.0         | [Deed](https://creativecommons.org/publicdomain/zero/1.0/) |
 
 For further clarifications about the licenses, see the [License Versions](https://wiki.creativecommons.org/wiki/License_Versions) article on the Creative Commons wiki.
 
------
+---
 
-This guide is loosely based on the "[Best practices for attribution](https://wiki.creativecommons.org/wiki/Best_practices_for_attribution)" article on the Creative Commons wiki.
+Portions of this guide are loosely based on the "[Best practices for attribution](https://wiki.creativecommons.org/wiki/Best_practices_for_attribution)" article on the Creative Commons wiki, licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
