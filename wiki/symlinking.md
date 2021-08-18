@@ -8,6 +8,8 @@ If you want to build the world outside of Foundry's world directory, you need to
 
 This is completely optional and it is likely easier to simply clone the repository directly into your `Data/worlds` directory.
 
+You can also apply the same concepts to module or system development, substituting `worlds` for `modules` or `systems` respectively.
+
 The process is slightly different depending on your OS:
 
 ## Windows
