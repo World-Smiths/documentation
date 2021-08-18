@@ -1,103 +1,100 @@
-//Note from fotoply: This seems to be very broken in 0.8.x currently..
+let tilesLocation = `splitBackground/${canvas.scene.name}`;
+let content = `<form>
+                <p>This macro will convert the current scene's background image to smaller tiles that should improve rendering performance in low resources computers. To continue, select the amount of splits you want and press <strong>OK.</strong></p>
+                <p>Checking <strong>Lock tiles</strong> will lock the tiles so they cannot be moved/deleted accidentally.</p>
+                <p>If you need to revert the changes this macro do, you can manually delete the added tiles and re-set the scene's background to the previous value (check the chat log for the file).</p>
+                <div class="form-group">
+                  <label>Horizontal count:</label>
+                  <input name="horizontal" value="2"></input>
+                </div>
+                <div class="form-group">
+                  <label>Vertical count:</label>
+                  <input name="vertical" value="2"></input>
+                </div>
+                <div class="form-group">
+                  <label>Lock tiles</label>
+                  <input type="checkbox" name="lock"></input>
+                </div>
+              </form>`;
 
-let confirmed = false;
-function getPosition(string, subString, index) {
-  return string.split(subString, index).join(subString).length;
-}
-
-
-let d = new Dialog({
- title: "Background tiles",
- content: `
- <form>
-      <div class="form-group">
-       <label>Horizontal count:</label>
-       <input id="horizontal" name="horizontal"></input>
-       </div>
-       <div class="form-group">
-       <label>Vertical count:</label>
-       <input id="vertical" name="vertical"></input>
-      </div>
-      <div class="form-group">
-      <label>Lock tiles</label>
-      <input id="lock" type="checkbox" name="lock" checked="false"></input>
-      </div>
-     </form>
- `,
- buttons: {
-  ok: {
-   icon: '<i class="fas fa-check"></i>',
-   label: "Ok",
-   callback: () => confirmed = true
+new Dialog({
+  title: "Convert background to tiles",
+  content,
+  buttons: {
+    ok: {
+      icon: '<i class="fas fa-check"></i>',
+      label: "Ok",
+      callback: (html) => {
+        const horizontal = html.find("[name=horizontal]")[0].value;
+        const vertical = html.find("[name=vertical]")[0].value;
+        const lock = html.find("[name=lock]")[0].checked;
+        createTiles(horizontal, vertical, lock);
+      },
+    },
+    cancel: {
+      icon: '<i class="fas fa-times"></i>',
+      label: "Cancel",
+    },
   },
-  cancel: {
-   icon: '<i class="fas fa-times"></i>',
-   label: "Cancel",
-  }
- },
- default: "ok",
- close: html => {
-     if (confirmed) {
-         let horizontalCells = parseInt(html.find('[name=horizontal]')[0].value);
-         let verticalCells = parseInt(html.find('[name=vertical]')[0].value);
-         let lock = html.find('[name=lock]')[0].checked;
-         
-         doTiling(horizontalCells, verticalCells, lock);
- 	   }
- 	 }
 }).render(true);
 
-async function saveImage(image, x, y, location) {
-    await canvas.app.renderer.extract.canvas(image).toBlob(function (b) {
-		    let file = new File([b], "x" + x + "y" + y + ".webp", {type:"image/webp"});
-		    FilePicker.upload("data", location + "/", file);
-		}, "image/webp");
+async function createTiles(horizontalCells, verticalCells, locked) {
+  let texture = new PIXI.Texture.from(canvas.background.bgPath);
+  let tileWidth = texture.orig.width / horizontalCells;
+  let tileHeight = texture.orig.height / verticalCells;
+
+  if (!Number.isInteger(tileWidth) || !Number.isInteger(tileHeight)) {
+    ui.notifications.error(`Cannot split a ${texture.orig.width} by ${texture.orig.height} background image into ${horizontalCells} by ${verticalCells}; must evenly divide.`);
+    return;
+  }
+
+  createLocationIfNeeded();
+
+  var tilesData = [];
+  for (var x = 0; x < horizontalCells; x++) {
+    for (var y = 0; y < verticalCells; y++) {
+      var tileTexture = new PIXI.Texture(
+        texture,
+        new PIXI.Rectangle(x * tileWidth, y * tileHeight, tileWidth, tileHeight)
+      );
+      var tileSprite = new PIXI.Sprite(tileTexture);
+      await saveImage(`background_${x}_${y}.webp`, tileSprite);
+      tilesData.push(dataForTile(tileWidth, tileHeight, x, y, locked));
+    }
+  }
+  await canvas.scene.createEmbeddedDocuments("Tile", tilesData);
+  ChatMessage.create({content: "Removing background image: " + canvas.scene.img});
+  await Scene.updateDocuments([{_id: canvas.scene.id, img: ""}]);
+
+  ui.notifications.info("Done!");
 }
 
-async function doTiling(horizontalCells, verticalCells, isLocked) {
-        if(canvas.background.width % horizontalCells != 0 || canvas.background.height % verticalCells != 0) {
-            ui.notifications.error("Cannot split background image into "  + horizontalCells + " by " + verticalCells + "; Must evenly divide.");
-            return;
-        }
-    
-         let width = canvas.background.width/horizontalCells;
-         let height = canvas.background.height/verticalCells;
-         
-         var tempLoc = canvas.background.source.src;
-         let location = "splitBackgrounds/" + tempLoc.substring(getPosition(tempLoc, "/", 3)+1, tempLoc.length).replaceAll("%20", " ").replaceAll("/", "-").split(".")[0];
-         try {
-             await FilePicker.createDirectory("data", "splitBackgrounds");
-         } catch (_) {
-             
-         }
-         try {
-             await FilePicker.createDirectory("data",location);
-         } catch (err) {
-             console.log("Location already exists");
-         }
-         var texture = new PIXI.Texture.from(tempLoc);
-         var originalWidth = texture.orig.width;
-         var originalHeight = texture.orig.height;
-	 console.log("Grid size: " + horizontalCells + " x " + verticalCells);
-	 for (var x = 0; x < horizontalCells; x++) {
-	   for (var y = 0; y < verticalCells; y++) {
-	   	    var tile = new PIXI.Texture(texture, new PIXI.Rectangle(x*(originalWidth/horizontalCells), y*(originalHeight/verticalCells), (originalWidth/horizontalCells), (originalHeight/verticalCells)));
-		    var tileSprite = new PIXI.Sprite(tile);
-		    saveImage(tileSprite, x, y, location);
-		    Tile.create({
-              img: location +  "/x" + x + "y" + y + ".webp",
-              width: width,
-              height: height,
-              scale: 1,
-              x: x*width+Math.ceil(canvas.scene.data.padding*canvas.scene.data.width/canvas.scene.data.grid)*canvas.scene.data.grid,
-              y: y*height+Math.ceil(canvas.scene.data.padding*canvas.scene.data.height/canvas.scene.data.grid)*canvas.scene.data.grid,
-              z: -100,
-              rotation: 0,
-              hidden: false,
-              locked: isLocked
-            });
-            await new Promise(r => setTimeout(r, 100));
-	   }
-	 }
-	 ui.notifications.info("Finished splitting map, if you are seeing error tiles swap to another scene then back. After confirming that everything is in order you can remove background.")
+async function createLocationIfNeeded() {
+  var fullPath = "";
+
+  for (const component of tilesLocation.split("/")) {
+    try {
+      fullPath += `${component}/`;
+      await FilePicker.createDirectory("data", fullPath);
+    } catch (_err) {}
+  }
+}
+
+async function saveImage(filename, image) {
+  await canvas.app.renderer.extract.canvas(image).toBlob(function (blob) {
+    let file = new File([blob], filename, { type: "image/webp" });
+    FilePicker.upload("data", tilesLocation, file);
+  }, "image/webp");
+}
+
+function dataForTile(tileWidth, tileHeight, x, y, locked) {
+  return {
+    img: `${tilesLocation}/background_${x}_${y}.webp`,
+    width: tileWidth,
+    height: tileHeight,
+    x: canvas.scene.dimensions.paddingX + x * tileWidth,
+    y: canvas.scene.dimensions.paddingY + y * tileHeight,
+    z: -100,
+    locked: locked,
+  };
 }
