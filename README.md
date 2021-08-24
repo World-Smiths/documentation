@@ -4,6 +4,10 @@ A collection of world building documentation in the form of wiki pages, code sni
 
 ## You're probably looking for [the wiki](https://world-smiths.github.io/documentation/wiki/)
 
+## Contributing
+
+The documentation in the wiki is in Markdown that should follow [Markdown Lint](https://github.com/DavidAnson/markdownlint). You should use fences (\`\`\`) around your code blocks with the language for syntax highlighting.
+
 ## License
 
 The [Worlds Smiths Wiki](https://world-smiths.github.io/documentation/wiki/) © 2021 is licensed under [CC BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/)
