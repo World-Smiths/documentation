@@ -2,6 +2,8 @@
 
 **More macros [here](../macros).**
 
+> Many of these macros haven't been updated for v9 yet. If you have an updated copy of one, please contribute it 😃
+
 ## Re-associate tokens with actors with the same name
 
 ```js
