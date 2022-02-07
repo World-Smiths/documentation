@@ -4,6 +4,18 @@ Welcome to the World Smiths Wiki!
 
 Here you will find a collection of world building documentation, code snippets, examples, as well as standards for how to structure and work on worlds.
 
+## [Journal Entries](./journal-entries.md)
+
+Guidance and tips for writing Journal Entries.
+
+## [Discord Invite Links](./discord-invite-link.md)
+
+Step-by-step tutorial on creating a Discord Invite Link
+
+## [Scene Initial View](./initial-view.md)
+
+Documentation on the optimal configuration fo the scene initial view.
+
 ## [Symlinking](./symlinking.md)
 
 Instructions on building a world outside of Foundry's `Data/worlds` directory, while still having it show up within Foundry.
