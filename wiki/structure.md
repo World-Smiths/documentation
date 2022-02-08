@@ -1,4 +1,4 @@
-# Structure (needs review)
+# Structure
 
 ## Repo File Tree
 
