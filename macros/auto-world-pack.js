@@ -40,7 +40,7 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
             const folder = game.folders.find(f => f.type === collection && f.name === game.world.data.title)
                 ?? await Folder.create({ name: game.world.data.title, type: collection });
             for (const document of documents) {
-                if (document.data.folder) {
+                if (game.folders.get(document.data.folder)) {
                     await game.folders.get(document.data.folder).update({ parent: folder.id });
                 } else {
                     await document.update({ folder: folder.id });
