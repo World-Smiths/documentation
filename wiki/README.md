@@ -4,6 +4,10 @@ Welcome to the World Smiths Wiki!
 
 Here you will find a collection of world building documentation, code snippets, examples, as well as standards for how to structure and work on worlds.
 
+## [Packing a World](./packing-a-world.md)
+
+A step-by-step guide to packing a world into a module with Scene Packer.
+
 ## [Journal Entries](./journal-entries.md)
 
 Guidance and tips for writing Journal Entries.
