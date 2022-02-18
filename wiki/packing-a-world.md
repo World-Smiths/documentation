@@ -1,4 +1,4 @@
-# Packing a world into a module with Scene Packer
+# Packing a world
 
 Here are steps involved in packing a world with Scene Packer:
 
