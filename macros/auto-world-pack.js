@@ -32,6 +32,7 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     await exportSceneFolders();
     await cleanupCFtempEntities();
     await showAssetReport();
+    lockCompendiums();
 
     async function moveToFolders() {
         const collections = CONST.COMPENDIUM_DOCUMENT_TYPES.filter(t => t !== "Adventure");
@@ -80,9 +81,7 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     }
 
     async function exportToCompendium() {
-        for (const pack of game.packs.filter(p => p.metadata.package === `${game.world.id}-module`)) {
-            pack.configure({ locked: false });
-        }
+        lockCompendiums(false);
         console.log("Unlocked compendiums");
 
         for (const folder of game.folders.filter(f => f.name === game.world.data.title)) {
@@ -188,5 +187,11 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
                 }, 200);
             });
         });
+    }
+
+    function lockCompendiums(lock = true) {
+        for (const pack of game.packs.filter(p => p.metadata.package === `${game.world.id}-module`)) {
+            pack.configure({ locked: lock });
+        }
     }
 })();
