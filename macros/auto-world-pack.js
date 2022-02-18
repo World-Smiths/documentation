@@ -82,7 +82,6 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
 
     async function exportToCompendium() {
         lockCompendiums(false);
-        console.log("Unlocked compendiums");
 
         for (const folder of game.folders.filter(f => f.name === game.world.data.title)) {
             await exportWithCompendiumFolders(folder);
@@ -193,5 +192,6 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         for (const pack of game.packs.filter(p => p.metadata.package === `${game.world.id}-module`)) {
             pack.configure({ locked: lock });
         }
+        console.log(`${lock ? "Locked" : "Unlocked"} compendiums`);
     }
 })();
