@@ -32,7 +32,7 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     await exportSceneFolders();
     await cleanupCFtempEntities();
     await showAssetReport();
-    lockCompendiums();
+    await lockCompendiums();
 
     async function moveToFolders() {
         const collections = CONST.COMPENDIUM_DOCUMENT_TYPES.filter(t => t !== "Adventure");
@@ -188,9 +188,9 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         });
     }
 
-    function lockCompendiums(lock = true) {
+    async function lockCompendiums(lock = true) {
         for (const pack of game.packs.filter(p => p.metadata.package === `${game.world.id}-module`)) {
-            pack.configure({ locked: lock });
+            await pack.configure({ locked: lock });
         }
         console.log(`${lock ? "Locked" : "Unlocked"} compendiums`);
     }
