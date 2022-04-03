@@ -1,3 +1,4 @@
+// @ts-nocheck
 /*
 * Make a backup before using this!
 *
@@ -5,21 +6,22 @@
 *   You have a `packs/` directory with .db files referenced in a `module.json`
 *   Only one compendium for each document type exists in that directory
 *   World documents aren't already in a folder named after the world's title
+*   There are no world documents which don't have compendiums
 *   There are no other modules enabled (other than ScenePacker & Compendium Folders)
-*   Supports Scene Packer v2.3.28 and Compendium Folders v2.4.2
+*   Only works in English
+*   Supports Scene Packer v2.4.4 and Compendium Folders v2.4.3
 */
 
-if (!(game.modules.get("scene-packer")?.active && game.modules.get("compendium-folders")?.active)) {
-    ui.notifications.error("Scene Packer and Compendium Folders must be enabled to use Auto World Pack.");
-    return;
-}
-
-if (!game.modules.get(`${game.world.id}-module`)?.active) {
-    ui.notifications.error(`You must have module named ${game.world.name} enabled to use Auto World Pack.`);
-    return;
-}
-
 (async () => {
+    if (!(game.modules.get("scene-packer")?.active && game.modules.get("compendium-folders")?.active)) {
+        ui.notifications.error("Scene Packer and Compendium Folders must be enabled to use Auto World Pack.");
+        return;
+    }
+    if (!game.modules.get(`${game.world.id}-module`)?.active) {
+        ui.notifications.error(`You must have module named ${game.world.name} enabled to use Auto World Pack.`);
+        return;
+    }
+
     const spMacros = game.packs.get("scene-packer.macros");
     await spMacros.getDocuments();
 
@@ -30,24 +32,27 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     await relinkJournalEntries();
     await bulkPackScenes();
     await exportSceneFolders();
+    await relinkJournalEntries();
     await cleanupCFtempEntities();
-    await showAssetReport();
     await lockCompendiums();
+    await showAssetReport();
 
     async function moveToFolders() {
         const collections = CONST.COMPENDIUM_DOCUMENT_TYPES.filter(t => t !== "Adventure");
         for (const collection of collections) {
             const documents = game[getDocumentClass(collection).collectionName];
-            const folder = game.folders.find(f => f.type === collection && f.name === game.world.data.title)
-                ?? await Folder.create({ name: game.world.data.title, type: collection });
-            for (const document of documents) {
-                if (game.folders.get(document.data.folder)) {
-                    await game.folders.get(document.data.folder).update({ parent: folder.id });
-                } else {
-                    await document.update({ folder: folder.id });
+            if ([...documents].length) {
+                const folder = game.folders.find(f => f.type === collection && f.name === game.world.data.title)
+                    ?? await Folder.create({ name: game.world.data.title, type: collection });
+                for (const document of documents) {
+                    if (game.folders.get(document.data.folder)) {
+                        await game.folders.get(document.data.folder).update({ parent: folder.id });
+                    } else {
+                        await document.update({ folder: folder.id });
+                    }
                 }
+                console.log(`Moved ${collection} Documents to folder`);
             }
-            console.log("Moved documents to folder");
         }
     }
 
@@ -55,12 +60,14 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         return new Promise(resolve => {
             spMacros.getName("Bulk replace asset references").execute();
             Hooks.once("renderDialog", (app, html) => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (app.title === "Bulk replace asset references") {
                         html[0].querySelector("input[name='find']").value = `worlds/${game.world.id}`;
                         html[0].querySelector("input[name='replace']").value = `modules/${game.world.id}-module`;
                         html[0].querySelector("input[type='checkbox']").checked = true;
                         html[0].querySelector("button.dialog-button.ok").click();
+                        console.log("Replaced asset references");
+                        await confirm("Bulk replace asset references");
                         resolve();
                     }
                 }, 200);
@@ -81,7 +88,7 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     }
 
     async function exportToCompendium() {
-        lockCompendiums(false);
+        await lockCompendiums(false);
 
         for (const folder of game.folders.filter(f => f.name === game.world.data.title)) {
             await exportWithCompendiumFolders(folder);
@@ -93,13 +100,22 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         return new Promise(resolve => {
             ScenePacker.PromptRelinkJournalEntries();
             Hooks.once("renderDialog", (app, html) => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (app.title === "Relink Journal Entries") {
                         html[0].querySelector("select#module-name").value = `${game.world.id}-module`;
                         html[0].querySelector("input[type='checkbox']#make-changes").checked = true;
                         html[0].querySelector("button.dialog-button.relink").click();
-                        console.log("Relinked Journal Entries");
-                        resolve();
+                        Hooks.once("renderDialog", (app, html) => {
+                            setTimeout(async () => {
+                                if (app.title === "Lock compendiums?") {
+                                    html[0].querySelector("button.dialog-button.no").click();
+                                    
+                                    console.log("Relinked Journal Entries");
+									await confirm("Relink Journal Entries");
+									resolve();
+                                }
+                            }, 200);
+                        });
                     }
                 }, 200);
             });
@@ -110,11 +126,12 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         return new Promise(resolve => {
             spMacros.getName("Bulk pack scenes").execute();
             Hooks.once("renderDialog", (app, html) => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (app.title === "Pack all Scenes in a folder") {
                         html[0].querySelector("input[type='text'][name='folder']").value = game.world.data.title;
                         html[0].querySelector("button.dialog-button.ok").click();
                         console.log("Bulk packed scenes");
+                        await confirm("Bulk pack scenes");
                         resolve();
                     }
                 }, 200);
@@ -133,11 +150,12 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
         return new Promise(resolve => {
             spMacros.getName("Clean up #[CF_tempEntity] entries").execute();
             Hooks.once("renderDialog", (app, html) => {
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (app.title === "Remove #[CF_tempEntity]") {
                         html[0].querySelector("select#module-name").value = `${game.world.id}-module`;
                         html[0].querySelector("button.dialog-button.process").click();
                         console.log("Cleaned up #[CF_tempEntity] entries");
+                        await confirm("Clean up #[CF_tempEntity] entries");
                         resolve();
                     }
                 }, 200);
@@ -172,19 +190,34 @@ if (!game.modules.get(`${game.world.id}-module`)?.active) {
     }
 
     /* -- Utilities -- */
+    async function confirm(text) {
+        await Dialog.confirm({
+            title: "Confirm Finished",
+            content: `<p>Is ${text} properly completed? If not, please wait before continuing.</p>`
+        });
+    }
+
     async function exportWithCompendiumFolders(folder, mergeByName = false) {
         return new Promise(resolve => {
+            game.CF.FICManager.exportFolderStructureToCompendium(folder);
             Hooks.once("renderDialog", async (app, html) => {
-                await game.CF.FICManager.exportFolderStructureToCompendium(folder);
-                setTimeout(() => {
+                setTimeout(async () => {
                     if (app.title.startsWith("Export Content: ")) {
                         // html[0].querySelector("div.form-group > select[name='pack']").value = `${game.world.id}-module.something`;
                         if (mergeByName) html[0].querySelector("div.form-group > input[type='checkbox'][name='merge']").checked = true;
                         html[0].querySelector("button.dialog-button.ok").click();
+                        console.log(`Exported ${folder.type} folder structure to compendium`);
+                        await confirm(`Export ${folder.type} folder structure to compendium`);
                         resolve();
                     }
                 }, 200);
             });
+            setTimeout(() => {
+                if (Object.values(ui.windows).find(w => w.title.startsWith("Export Content: "))) {
+                    console.log("Continuing since there was an error exporting this folder to compendium. Most likely because there is no compendium for this Document type.");
+                    resolve();
+                }
+            }, 500);
         });
     }
 
