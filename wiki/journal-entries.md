@@ -16,7 +16,7 @@ Use the `highlights` block for something you want to bring focus to.
 Remove unwanted HTML attributes:
 
 ```txt
-/( aria-level="1"| dir="ltr"| role="presentation"|&nbsp;|<span style=".*">|<\/span>)/gm
+/( aria-level="1"| dir="ltr"| role="presentation"|&nbsp;|<span style="([^"]*)">|<\/span>)/gm
 ```
 
 ### Quotes
