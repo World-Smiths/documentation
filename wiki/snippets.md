@@ -59,30 +59,31 @@ const deleteIds = spawnInfo.map( info => info.deleteId );
 
 ## Fix Names and Bars
 
+> Updated for v9
+
 Set Names to hover for owner and Bars to always display for owner for both tokens and prototype tokens. Also set bar 1 to track HP and unset bar 2.
 
 ```js
 // Display Modes: ALWAYS, CONTROL, HOVER, NONE, OWNER, OWNER_HOVER
-const updates = game.actors.filter(a => a.data.type === "npc").map(a => ({
+for (const scene of game.scenes) {
+    await scene.updateEmbeddedDocuments("Token", scene.tokens.map(t => ({
+        _id: t.id,
+        "bar1.attribute": "attributes.hp",
+        "bar2.attribute": null,
+        displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+        displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER,
+    })));
+}
+Actor.updateDocuments(game.actors.map(a => ({
     _id: a.id,
-    "token.bar1.attribute": "attributes.hp",
-    "token.bar2.attribute": "",
-    "token.displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-    "token.displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER
-}));
-Actor.update(updates);
-const tokens = canvas.tokens.placeables.filter(token=>token.actor).map(token => {
-    console.log(token.actor);
-    return {
-      _id: token.id,
-      "bar1.attribute": "attributes.hp",
-      "bar2.attribute": "None",
-      "displayName": CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
-      "displayBars": CONST.TOKEN_DISPLAY_MODES.OWNER
-    };
-});
-ui.notifications.info('Tokens bar1, bar2, and name set.');
-canvas.scene.updateEmbeddedEntity('Token', tokens)
+    token: {
+        "bar1.attribute": "attributes.hp",
+        "bar2.attribute": null,
+        displayName: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
+        displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER,
+    },
+})));
+ui.notifications.info("Tokens bar1, bar2, and name set.");
 ```
 
 ## Toggle Token Vision
